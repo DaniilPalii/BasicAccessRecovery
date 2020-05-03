@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordListGenerator", "WordListGenerator\WordListGenerator.csproj", "{7AF11884-03B9-4A3B-A00F-0CFC077B0A1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordListGenerator.UnitTests", "WordListGenerator.UnitTests\WordListGenerator.UnitTests.csproj", "{7F55F104-199F-4A0A-A8AE-ED61F2B6309D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7AF11884-03B9-4A3B-A00F-0CFC077B0A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF11884-03B9-4A3B-A00F-0CFC077B0A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF11884-03B9-4A3B-A00F-0CFC077B0A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF11884-03B9-4A3B-A00F-0CFC077B0A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AF11884-03B9-4A3B-A00F-0CFC077B0A1F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7F55F104-199F-4A0A-A8AE-ED61F2B6309D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F55F104-199F-4A0A-A8AE-ED61F2B6309D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F55F104-199F-4A0A-A8AE-ED61F2B6309D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F55F104-199F-4A0A-A8AE-ED61F2B6309D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
