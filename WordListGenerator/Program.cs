@@ -10,15 +10,28 @@ namespace WordListGenerator
         {
             var minWordLength = ReadMinWordLength();
             var maxWordLength = ReadMaxWordLength();
+            
+            var wordsCreator = new WordsCreator();
+            var wordsNumber = CountWords(wordsCreator.AllowedSymbols.Length, minWordLength, maxWordLength);
+            Console.WriteLine($"I will create {wordsNumber:N0} words for You");
 
             var resultFilePath = Path.Combine(
                 Environment.CurrentDirectory,
                 $"Words-{DateTime.Now:yyyy-MM-dd-hh-mm-ss}.txt");
-            Console.Write($"Creating file \"{resultFilePath}\"...");
-            using var fileStreamWriter = File.CreateText(resultFilePath);
+            Console.WriteLine($"in the file \"{resultFilePath}\"");
+            Console.WriteLine("now");
+            Console.WriteLine();
 
-            foreach (var word in new WordsCreator().CreateAllWords(minWordLength, maxWordLength))
-                fileStreamWriter.WriteLine(word);
+            using (var fileStreamWriter = File.CreateText(resultFilePath))
+            {
+                var wordNumber = 0d;
+                foreach (var word in wordsCreator.CreateAllWords(minWordLength, maxWordLength))
+                {
+                    fileStreamWriter.WriteLine(word);
+                    Console.CursorLeft = 0;
+                    Console.Write($"Generated {wordNumber++:N0} words");
+                }
+            }
             
             Console.WriteLine("Done");
             Console.WriteLine("Press any key...");
@@ -39,6 +52,13 @@ namespace WordListGenerator
             var input = Console.ReadLine();
 
             return !string.IsNullOrEmpty(input) ? int.Parse(input) : DefaultMinWordLengthInput;
+        }
+
+        private static double CountWords(int symbolsNumber, int minWordLength, int maxWordLength)
+        {
+            return Enumerable.Range(minWordLength, maxWordLength - minWordLength + 1)
+                .Select(wordLength => Math.Pow(symbolsNumber, wordLength))
+                .Sum();
         }
 
         private const int DefaultMinWordLengthInput = 1;
