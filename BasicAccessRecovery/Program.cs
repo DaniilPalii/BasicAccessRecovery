@@ -14,13 +14,14 @@ namespace BasicAccessRecovery
             var maxWordLength = ConsoleHelper.ReadInt("Input maximal word length (default is 12)") ?? 12;
 
             var httpClient = new HttpClient();
-            var loginsPasswordsCreator = new LoginsPasswordsCreator();
+            var wordsCreator = new WordsCreator();
             
             Console.WriteLine("Trying to recovery access...");
 
             foreach (
                 var (login, password)
-                in loginsPasswordsCreator.CreateAllLoginsPasswords(minWordLength, maxWordLength))
+                in wordsCreator.CreateAllWords(minWordLength, maxWordLength)
+                    .CrossJoin(wordsCreator.CreateAllWords(minWordLength, maxWordLength), (l, p) => (l, p)))
             {
                 var uriWithCredentials = new UriBuilder(uri) { UserName = login, Password = password }.Uri;
                 var gettingTask = httpClient.GetAsync(uriWithCredentials);

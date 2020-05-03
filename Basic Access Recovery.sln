@@ -25,5 +25,6 @@ Global
 		{F1E938EA-C39B-4115-A2ED-58E73DFD018A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1E938EA-C39B-4115-A2ED-58E73DFD018A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1E938EA-C39B-4115-A2ED-58E73DFD018A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E938EA-C39B-4115-A2ED-58E73DFD018A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
