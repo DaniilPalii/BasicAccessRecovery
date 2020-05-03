@@ -8,8 +8,8 @@ namespace WordListGenerator
     {
         public static void Main(string[] args)
         {
-            var minWordLength = ReadMinWordLength();
-            var maxWordLength = ReadMaxWordLength();
+            var minWordLength = ConsoleHelper.ReadInt("Input maximal word length (default is 12)") ?? 12;
+            var maxWordLength = ConsoleHelper.ReadInt("Input minimal word length (default is 1)") ?? 1;
             
             var wordsCreator = new WordsCreator();
             var wordsNumber = CountWords(wordsCreator.AllowedSymbols.Length, minWordLength, maxWordLength);
@@ -38,30 +38,11 @@ namespace WordListGenerator
             Console.ReadKey();
         }
 
-        private static int ReadMaxWordLength()
-        {
-            Console.WriteLine("Input maximal word length (default is 12):");
-            var input = Console.ReadLine();
-
-            return !string.IsNullOrEmpty(input) ? int.Parse(input) : DefaultMaxWordLengthInput;
-        }
-
-        private static int ReadMinWordLength()
-        {
-            Console.WriteLine("Input minimal word length (default is 1):");
-            var input = Console.ReadLine();
-
-            return !string.IsNullOrEmpty(input) ? int.Parse(input) : DefaultMinWordLengthInput;
-        }
-
         private static double CountWords(int symbolsNumber, int minWordLength, int maxWordLength)
         {
             return Enumerable.Range(minWordLength, maxWordLength - minWordLength + 1)
                 .Select(wordLength => Math.Pow(symbolsNumber, wordLength))
                 .Sum();
         }
-
-        private const int DefaultMinWordLengthInput = 1;
-        private const int DefaultMaxWordLengthInput = 12;
     }
 }
