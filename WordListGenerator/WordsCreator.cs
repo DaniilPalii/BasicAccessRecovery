@@ -4,9 +4,12 @@ using System.Linq;
 
 namespace WordListGenerator
 {
-    public static class WordsCreator
+    public class WordsCreator
     {
-        public static IEnumerable<string> CreateAllWords(IReadOnlyCollection<char> allowedSymbols, int minLength, int maxLength)
+        public char[] AllowedSymbols { get; set; } =
+            "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890_-!".ToArray();
+
+        public IEnumerable<string> CreateAllWords(int minLength, int maxLength)
         {
             if (minLength <= 0)
                 throw new ArgumentException(
@@ -19,40 +22,23 @@ namespace WordListGenerator
                     + $"but maximal length was {maxLength} when minimal length was {minLength}",
                     nameof(maxLength));
 
-            var wordsByLengths = CreateWordsByLengths(allowedSymbols, maxLength);
-            var words = Enumerable.Empty<string>();
-
             for (var length = minLength; length <= maxLength; length++)
-                words = words.Concat(wordsByLengths[length]);
-
-            return words;
+                foreach (var word in CreateAllWords(length))
+                    yield return word;
         }
 
-        private static Dictionary<int, string[]> CreateWordsByLengths(
-            IReadOnlyCollection<char> allowedSymbols,
-            int maxLength)
+        public IEnumerable<string> CreateAllWords(int length)
         {
-            var wordsByLengths = new Dictionary<int, string[]>
-            {
-                [1] = allowedSymbols.Select(s => s.ToString()).ToArray()
-            };
-
-            if (maxLength != 1)
-                for (var length = 2; length <= maxLength; length++)
-                    wordsByLengths[length]
-                        = wordsByLengths[length - 1].CrossJoin(allowedSymbols, (w, s) => w + s).ToArray();
-
-            return wordsByLengths;
-        }
-
-        public static IEnumerable<string> CreateAllWords(IReadOnlyCollection<char> allowedSymbols, int length)
-        {
-            if (length < 1)
+            if (length <= 0)
                 throw new ArgumentException($"Length must be bigger than 0 but was {length}", nameof(length));
 
-            var wordsByLengths = CreateWordsByLengths(allowedSymbols, length);
+            var words = AllowedSymbols.Select(s => s.ToString());
 
-            return wordsByLengths[length];
+            if (length > 1)
+                for (var i = 2; i <= length; i++)
+                    words = words.CrossJoin(AllowedSymbols, (w, s) => w + s);
+
+            return words;
         }
     }
 }

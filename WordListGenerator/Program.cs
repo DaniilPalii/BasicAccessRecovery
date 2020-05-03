@@ -17,7 +17,7 @@ namespace WordListGenerator
             Console.Write($"Creating file \"{resultFilePath}\"...");
             using var fileStreamWriter = File.CreateText(resultFilePath);
 
-            foreach (var word in WordsCreator.CreateAllWords(AllowedSymbols, minWordLength, maxWordLength))
+            foreach (var word in new WordsCreator().CreateAllWords(minWordLength, maxWordLength))
                 fileStreamWriter.WriteLine(word);
             
             Console.WriteLine("Done");
@@ -40,9 +40,6 @@ namespace WordListGenerator
 
             return !string.IsNullOrEmpty(input) ? int.Parse(input) : DefaultMinWordLengthInput;
         }
-
-        private static readonly char[] AllowedSymbols
-            = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890_-!".ToArray();
 
         private const int DefaultMinWordLengthInput = 1;
         private const int DefaultMaxWordLengthInput = 12;
